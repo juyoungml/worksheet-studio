@@ -1,0 +1,4 @@
+version: 1
+display_name: Worksheet Studio
+short_description: Create staged worksheet-based study materials for technical topics and papers.
+default_prompt: Create or extend worksheet-based study materials for a technical topic using progressive LaTeX worksheets, PDFs, and optional code labs.
