@@ -8,7 +8,8 @@ This repository packages the `worksheet-studio` skill in the open `SKILL.md` for
 
 `worksheet-studio` helps an agent:
 
-- diagnose what the learner already knows before generating material
+- inspect the source material before generating anything generic
+- diagnose what the learner already knows after understanding the source
 - create a topic folder for structured study
 - break a topic into staged worksheets
 - write active-recall prompts instead of passive summaries
@@ -72,7 +73,7 @@ Mention the skill by name when asking an agent to build or extend worksheets.
 Example prompts:
 
 - `Use worksheet-studio to create a study pack for a new paper on speculative decoding.`
-- `Use worksheet-studio to first ask me what I already know, then generate worksheets on FlashAttention.`
+- `Use worksheet-studio to read this paper first, then ask me what I already know, then generate worksheets on FlashAttention.`
 - `Use worksheet-studio to turn this topic into 5 progressive LaTeX worksheets.`
 - `Use worksheet-studio to generate both worksheets and matching answer sheets for TDANN.`
 - `Use worksheet-studio to extend worksheet 3 with derivations and numerical exercises.`
@@ -93,3 +94,4 @@ It fits workflows where:
 - The included conventions are based on a real worksheet workflow used for ML / DL paper study.
 - PDF compilation is described in the skill, but depends on local tooling such as `tectonic`.
 - The skill now supports a lightweight intake step so agents can calibrate worksheet difficulty and emphasis before authoring.
+- The intended flow is source review first, then learner intake, then worksheet generation.

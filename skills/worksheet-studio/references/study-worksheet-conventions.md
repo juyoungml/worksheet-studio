@@ -15,7 +15,13 @@ This reference captures the worksheet pattern used in a real study repository fo
 
 ## Intake before generation
 
-Before generating a fresh worksheet sequence, calibrate the learner when needed.
+Before generating a fresh worksheet sequence, first inspect the source material, then calibrate the learner when needed.
+
+Recommended order:
+
+1. Read the paper, notes, or source repo enough to understand the topic.
+2. Identify prerequisites, core concepts, and likely sticking points.
+3. Ask the learner only the questions needed to calibrate the worksheet.
 
 Useful questions:
 
@@ -43,6 +49,10 @@ Worksheets should usually move through this arc:
 - Mix theory with concrete calculations
 - Keep README files concise
 - Calibrate question difficulty to the user's current level
+- Start each worksheet with clear learning objectives
+- Include self-explanation prompts, not only solve-for-the-answer prompts
+- Use misconception checks when adjacent concepts are easy to confuse
+- Include some transfer questions that move slightly beyond the original example
 
 ## Answer sheet conventions
 
@@ -50,6 +60,17 @@ Worksheets should usually move through this arc:
 - Prefer worked solutions over short answer keys.
 - Preserve the original worksheet text and insert solutions beneath each problem.
 - When generating answer sources, copy from the worksheet `.tex` and add solution blocks rather than rewriting the document from scratch.
+- If appropriate, provide layered support: hint first, full solution second.
+
+## Educational intent
+
+The goal is not to summarize the source, but to help the learner:
+
+- retrieve core ideas from memory
+- explain why the method works
+- connect equations, intuition, and implementation
+- notice misunderstandings early
+- transfer the idea to adjacent cases
 
 ## LaTeX conventions
 
