@@ -25,6 +25,9 @@ The skill is especially aimed at ML / DL / systems study, but the workflow gener
 worksheet-studio/
 ├── AGENTS.md
 ├── README.md
+├── examples/
+│   ├── mini-sglang/
+│   └── speculative-decoding/
 └── skills/
     └── worksheet-studio/
         ├── SKILL.md
@@ -77,6 +80,21 @@ Example prompts:
 - `Use worksheet-studio to turn this topic into 5 progressive LaTeX worksheets.`
 - `Use worksheet-studio to generate both worksheets and matching answer sheets for TDANN.`
 - `Use worksheet-studio to extend worksheet 3 with derivations and numerical exercises.`
+
+## Worked Examples
+
+The repository includes example "Claude Code style" sessions that show the intended flow:
+
+- review the source first
+- ask a small number of grounded intake questions
+- generate a calibrated worksheet plan
+
+Examples:
+
+- `examples/mini-sglang/claude-code-session.md`
+- `examples/mini-sglang/generated-plan.md`
+- `examples/speculative-decoding/claude-code-session.md`
+- `examples/speculative-decoding/generated-plan.md`
 
 ## Audience
 
