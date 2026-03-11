@@ -8,9 +8,11 @@ This repository packages the `worksheet-studio` skill in the open `SKILL.md` for
 
 `worksheet-studio` helps an agent:
 
+- diagnose what the learner already knows before generating material
 - create a topic folder for structured study
 - break a topic into staged worksheets
 - write active-recall prompts instead of passive summaries
+- generate matched answer sheets with worked solutions
 - follow a paper-to-worksheet progression
 - keep outputs aligned with a LaTeX + PDF + optional code-lab workflow
 
@@ -39,7 +41,7 @@ worksheet-studio/
 Install directly from the GitHub directory URL:
 
 ```text
-$skill-installer install https://github.com/<your-user>/worksheet-studio/tree/main/skills/worksheet-studio
+$skill-installer install https://github.com/juyoungml/worksheet-studio/tree/main/skills/worksheet-studio
 ```
 
 ### Claude Code
@@ -70,7 +72,9 @@ Mention the skill by name when asking an agent to build or extend worksheets.
 Example prompts:
 
 - `Use worksheet-studio to create a study pack for a new paper on speculative decoding.`
+- `Use worksheet-studio to first ask me what I already know, then generate worksheets on FlashAttention.`
 - `Use worksheet-studio to turn this topic into 5 progressive LaTeX worksheets.`
+- `Use worksheet-studio to generate both worksheets and matching answer sheets for TDANN.`
 - `Use worksheet-studio to extend worksheet 3 with derivations and numerical exercises.`
 
 ## Audience
@@ -88,4 +92,4 @@ It fits workflows where:
 
 - The included conventions are based on a real worksheet workflow used for ML / DL paper study.
 - PDF compilation is described in the skill, but depends on local tooling such as `tectonic`.
-- Replace `<your-user>` in the install command before publishing.
+- The skill now supports a lightweight intake step so agents can calibrate worksheet difficulty and emphasis before authoring.
