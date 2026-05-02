@@ -6,6 +6,8 @@ SKILL_DIR="$ROOT/skills/study-worksheets"
 SKILL_MD="$SKILL_DIR/SKILL.md"
 EXAMPLE_TEX="$ROOT/examples/gumbel-softmax/tex/worksheet1_the_problem.tex"
 EXAMPLE_PDF="$ROOT/examples/gumbel-softmax/pdf/worksheet1_the_problem.pdf"
+MINI_PLAN_PDF="$ROOT/examples/mini-sglang/pdf/generated-plan.pdf"
+SPEC_PLAN_PDF="$ROOT/examples/speculative-decoding/pdf/generated-plan.pdf"
 
 fail() {
   printf 'FAIL: %s\n' "$1" >&2
@@ -41,6 +43,8 @@ pass "skill package installs into Codex, Claude Code, and Copilot-style director
 
 [[ -f "$EXAMPLE_TEX" ]] || fail "missing generated gumbel-softmax worksheet example"
 [[ -f "$EXAMPLE_PDF" ]] || fail "missing generated gumbel-softmax worksheet PDF"
+[[ -f "$MINI_PLAN_PDF" ]] || fail "missing mini-sglang generated plan PDF"
+[[ -f "$SPEC_PLAN_PDF" ]] || fail "missing speculative-decoding generated plan PDF"
 grep -q 'Learning Objectives' "$EXAMPLE_TEX" || fail "generated worksheet example lacks learning objectives"
 grep -q 'Problem 1.1' "$EXAMPLE_TEX" || fail "generated worksheet example lacks numbered problems"
 

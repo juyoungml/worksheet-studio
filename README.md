@@ -4,8 +4,6 @@ Agent skill for turning technical topics and papers into worksheet-based study m
 
 This repository packages the `study-worksheets` skill in the open `SKILL.md` format used by Codex, Claude Code, GitHub Copilot agents, and other coding agents that support agent skills.
 
-The GitHub repository remains `juyoungml/worksheet-studio`; only the packaged skill directory and skill name are `study-worksheets`.
-
 ## What It Does
 
 `study-worksheets` helps an agent:
@@ -24,7 +22,7 @@ The skill is especially aimed at ML / DL / systems study, but the workflow gener
 ## Repository Layout
 
 ```text
-worksheet-studio/
+study-worksheets/
 ├── AGENTS.md
 ├── README.md
 ├── examples/
@@ -56,7 +54,7 @@ skills/study-worksheets/
 Use Codex's built-in `$skill-installer`. Install by GitHub directory URL, then restart Codex so the skill is discovered:
 
 ```text
-$skill-installer install https://github.com/juyoungml/worksheet-studio/tree/main/skills/study-worksheets
+$skill-installer install https://github.com/juyoungml/study-worksheets/tree/main/skills/study-worksheets
 ```
 
 Codex installs into `$CODEX_HOME/skills/<skill-name>`, which defaults to `~/.codex/skills/<skill-name>`.
@@ -168,8 +166,10 @@ Examples:
 - `examples/gumbel-softmax/pdf/worksheet1_the_problem.pdf`
 - `examples/mini-sglang/claude-code-session.md`
 - `examples/mini-sglang/generated-plan.md`
+- `examples/mini-sglang/pdf/generated-plan.pdf`
 - `examples/speculative-decoding/claude-code-session.md`
 - `examples/speculative-decoding/generated-plan.md`
+- `examples/speculative-decoding/pdf/generated-plan.pdf`
 
 ## Audience
 
