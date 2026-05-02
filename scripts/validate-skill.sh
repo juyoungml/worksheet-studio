@@ -25,21 +25,50 @@ pass() {
 
 grep -q '^name: study-worksheets$' "$SKILL_MD" || fail "SKILL.md frontmatter name must be study-worksheets"
 grep -q '^description: .\+' "$SKILL_MD" || fail "SKILL.md frontmatter description is missing"
+grep -q '^license: MIT$' "$SKILL_MD" || fail "SKILL.md frontmatter license should be MIT"
+grep -q '^compatibility: .*opencode.*hermes-agent' "$SKILL_MD" || fail "SKILL.md compatibility should include opencode and hermes-agent"
 grep -q 'references/study-worksheet-conventions.md' "$SKILL_MD" || fail "SKILL.md does not point to the conventions reference"
 grep -q '^display_name: Study Worksheets$' "$SKILL_DIR/agents/openai.yaml" || fail "agents/openai.yaml display_name is stale"
+
+DESC_LEN="$(awk '
+  /^description: / {
+    sub(/^description: /, "");
+    print length($0);
+    exit
+  }
+' "$SKILL_MD")"
+[[ "$DESC_LEN" -ge 1 && "$DESC_LEN" -le 1024 ]] || fail "SKILL.md description must be 1-1024 characters for OpenCode"
 
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
-mkdir -p "$TMP_DIR/codex/skills" "$TMP_DIR/project/.claude/skills" "$TMP_DIR/project/.github/skills"
+mkdir -p \
+  "$TMP_DIR/codex/skills" \
+  "$TMP_DIR/project/.claude/skills" \
+  "$TMP_DIR/project/.github/skills" \
+  "$TMP_DIR/project/.opencode/skills" \
+  "$TMP_DIR/project/.agents/skills" \
+  "$TMP_DIR/config/opencode/skills" \
+  "$TMP_DIR/hermes/skills" \
+  "$TMP_DIR/hermes-project/skills"
 cp -R "$SKILL_DIR" "$TMP_DIR/codex/skills/"
 cp -R "$SKILL_DIR" "$TMP_DIR/project/.claude/skills/"
 cp -R "$SKILL_DIR" "$TMP_DIR/project/.github/skills/"
+cp -R "$SKILL_DIR" "$TMP_DIR/project/.opencode/skills/"
+cp -R "$SKILL_DIR" "$TMP_DIR/project/.agents/skills/"
+cp -R "$SKILL_DIR" "$TMP_DIR/config/opencode/skills/"
+cp -R "$SKILL_DIR" "$TMP_DIR/hermes/skills/"
+cp -R "$SKILL_DIR" "$TMP_DIR/hermes-project/skills/"
 
 [[ -f "$TMP_DIR/codex/skills/study-worksheets/SKILL.md" ]] || fail "Codex install layout failed"
 [[ -f "$TMP_DIR/project/.claude/skills/study-worksheets/SKILL.md" ]] || fail "Claude Code project install layout failed"
 [[ -f "$TMP_DIR/project/.github/skills/study-worksheets/SKILL.md" ]] || fail "GitHub Copilot project install layout failed"
-pass "skill package installs into Codex, Claude Code, and Copilot-style directories"
+[[ -f "$TMP_DIR/project/.opencode/skills/study-worksheets/SKILL.md" ]] || fail "OpenCode project install layout failed"
+[[ -f "$TMP_DIR/project/.agents/skills/study-worksheets/SKILL.md" ]] || fail "agent-compatible project install layout failed"
+[[ -f "$TMP_DIR/config/opencode/skills/study-worksheets/SKILL.md" ]] || fail "OpenCode global install layout failed"
+[[ -f "$TMP_DIR/hermes/skills/study-worksheets/SKILL.md" ]] || fail "Hermes global install layout failed"
+[[ -f "$TMP_DIR/hermes-project/skills/study-worksheets/SKILL.md" ]] || fail "Hermes project install layout failed"
+pass "skill package installs into Codex, Claude Code, Copilot, OpenCode, and Hermes-style directories"
 
 [[ -f "$EXAMPLE_TEX" ]] || fail "missing generated gumbel-softmax worksheet example"
 [[ -f "$EXAMPLE_PDF" ]] || fail "missing generated gumbel-softmax worksheet PDF"

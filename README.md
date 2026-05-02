@@ -99,12 +99,49 @@ Result examples:
 
 Skill directory names should stay lowercase and hyphenated, and the `name` in `SKILL.md` should match the directory name.
 
+### OpenCode
+
+Copy `skills/study-worksheets/` into one of OpenCode's supported skill locations:
+
+- `.opencode/skills/` for a project-local install
+- `~/.config/opencode/skills/` for a global install
+- `.claude/skills/` or `~/.claude/skills/` for Claude-compatible discovery
+- `.agents/skills/` or `~/.agents/skills/` for agent-compatible discovery
+
+Result examples:
+
+```text
+.opencode/skills/study-worksheets/SKILL.md
+~/.config/opencode/skills/study-worksheets/SKILL.md
+.agents/skills/study-worksheets/SKILL.md
+```
+
+OpenCode loads skills on demand through its native `skill` tool. The `name` must be lowercase hyphenated and match the folder name.
+
+### Hermes Agent
+
+Copy `skills/study-worksheets/` into Hermes' skills directory:
+
+- `~/.hermes/skills/` for a global Hermes install
+- `skills/` at a project root when using project-local skills
+- an external skills directory configured in `~/.hermes/config.yaml`
+
+Result examples:
+
+```text
+~/.hermes/skills/study-worksheets/SKILL.md
+skills/study-worksheets/SKILL.md
+```
+
+Hermes exposes installed skills as slash commands and can scan external directories, so this skill can also be shared through a common `~/.agents/skills/` directory when configured.
+
 ## Maintenance Conventions
 
 Keep the public package boring and portable:
 
 - keep `skills/study-worksheets/SKILL.md` concise and put detailed conventions in `references/`
 - keep the directory name, `SKILL.md` frontmatter `name`, and install docs aligned
+- keep frontmatter portable: `name`, `description`, `license`, `compatibility`, and string metadata
 - include at least one generated artifact that users can inspect without compiling anything
 - run `./scripts/validate-skill.sh` before pushing changes
 - avoid tool-specific assumptions in the skill body unless they are clearly optional
@@ -123,7 +160,7 @@ The script checks that:
 - the required `SKILL.md`, `agents/openai.yaml`, and reference files exist
 - the skill name matches the install directory
 - stale `skills/worksheet-studio` packaging is absent
-- the package can be copied into Codex, Claude Code, and Copilot-style skill directories
+- the package can be copied into Codex, Claude Code, Copilot, OpenCode, and Hermes-style skill directories
 - the generated Gumbel-Softmax worksheet example has the expected active-recall structure
 - the generated worksheet compiles with `tectonic` when available
 
@@ -137,7 +174,7 @@ Popular current patterns:
 - make the directory name and frontmatter `name` identical
 - put long conventions in referenced files so the agent loads them only when needed
 - include examples that show the workflow without turning them into rigid templates
-- document install paths separately for Codex, Claude Code, and Copilot because discovery paths differ
+- document install paths separately because Codex, Claude Code, Copilot, OpenCode, and Hermes discover skills from different directories
 
 ## Usage
 

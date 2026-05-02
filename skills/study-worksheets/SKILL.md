@@ -2,6 +2,10 @@
 name: study-worksheets
 description: Create or extend worksheet-based study materials for technical topics, especially paper-driven ML/DL topics, by first understanding the source material, then diagnosing the learner's level and goals, and finally producing progressive LaTeX worksheets, answer sheets, compiled PDFs, and optional code labs.
 license: MIT
+compatibility: codex, claude-code, github-copilot, opencode, hermes-agent
+metadata:
+  author: Juyoung Lee
+  tags: study, worksheets, active-recall, learning, ml, dl, agents
 ---
 
 # Study Worksheets
