@@ -8,7 +8,7 @@
 
 ### User
 
-Use `worksheet-studio` on speculative decoding. Read the source first, then ask me a few questions, then create a worksheet plan.
+Use `study-worksheets` on speculative decoding. Read the source first, then ask me a few questions, then create a worksheet plan.
 
 ### Assistant
 

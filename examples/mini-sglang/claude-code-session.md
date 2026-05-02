@@ -8,7 +8,7 @@
 
 ### User
 
-Use `worksheet-studio` on the `mini-sglang` repo. First inspect the repo, then ask me a few questions, then create a worksheet plan.
+Use `study-worksheets` on the `mini-sglang` repo. First inspect the repo, then ask me a few questions, then create a worksheet plan.
 
 ### Assistant
 

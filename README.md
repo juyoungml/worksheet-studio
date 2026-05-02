@@ -1,12 +1,14 @@
-# worksheet-studio
+# study-worksheets
 
 Agent skill for turning technical topics and papers into worksheet-based study materials.
 
-This repository packages the `worksheet-studio` skill in the open `SKILL.md` format used by Codex, Claude Code, GitHub Copilot agents, and other coding agents that support agent skills.
+This repository packages the `study-worksheets` skill in the open `SKILL.md` format used by Codex, Claude Code, GitHub Copilot agents, and other coding agents that support agent skills.
+
+The GitHub repository remains `juyoungml/worksheet-studio`; only the packaged skill directory and skill name are `study-worksheets`.
 
 ## What It Does
 
-`worksheet-studio` helps an agent:
+`study-worksheets` helps an agent:
 
 - inspect the source material before generating anything generic
 - diagnose what the learner already knows after understanding the source
@@ -26,10 +28,13 @@ worksheet-studio/
 ├── AGENTS.md
 ├── README.md
 ├── examples/
+│   ├── gumbel-softmax/
 │   ├── mini-sglang/
 │   └── speculative-decoding/
+├── scripts/
+│   └── validate-skill.sh
 └── skills/
-    └── worksheet-studio/
+    └── study-worksheets/
         ├── SKILL.md
         ├── LICENSE.txt
         ├── agents/
@@ -42,32 +47,82 @@ worksheet-studio/
 
 ### Codex
 
-Install directly from the GitHub directory URL:
+Use Codex's built-in `$skill-installer`. Install by GitHub directory URL, then restart Codex so the skill is discovered:
 
 ```text
-$skill-installer install https://github.com/juyoungml/worksheet-studio/tree/main/skills/worksheet-studio
+$skill-installer install https://github.com/juyoungml/worksheet-studio/tree/main/skills/study-worksheets
 ```
+
+Codex installs into `$CODEX_HOME/skills/<skill-name>`, which defaults to `~/.codex/skills/<skill-name>`.
 
 ### Claude Code
 
-Copy `skills/worksheet-studio/` into one of:
+Copy `skills/study-worksheets/` into one of:
 
 - `.claude/skills/` for a project-local install
 - `~/.claude/skills/` for a personal install
+- a Claude Code plugin's `skills/` directory when distributing it as part of a plugin
 
 Result:
 
 ```text
-.claude/skills/worksheet-studio/SKILL.md
+.claude/skills/study-worksheets/SKILL.md
 ```
+
+Recent Claude Code versions also let users invoke skills directly with `/study-worksheets` when the skill is available.
 
 ### GitHub Copilot Agents
 
-Copy `skills/worksheet-studio/` into one of:
+Copy `skills/study-worksheets/` into one of Copilot's supported skill locations.
+
+For project skills:
 
 - `.github/skills/`
 - `.claude/skills/`
+- `.agents/skills/`
+
+For personal skills:
+
 - `~/.copilot/skills/`
+- `~/.agents/skills/`
+
+Result examples:
+
+```text
+.github/skills/study-worksheets/SKILL.md
+~/.copilot/skills/study-worksheets/SKILL.md
+```
+
+Skill directory names should stay lowercase and hyphenated, and the `name` in `SKILL.md` should match the directory name.
+
+## Validate
+
+Run the validation script before publishing changes:
+
+```bash
+./scripts/validate-skill.sh
+```
+
+The script checks that:
+
+- the required `SKILL.md`, `agents/openai.yaml`, and reference files exist
+- the skill name matches the install directory
+- stale `skills/worksheet-studio` packaging is absent
+- the package can be copied into Codex, Claude Code, and Copilot-style skill directories
+- the generated Gumbel-Softmax worksheet example has the expected active-recall structure
+- the generated worksheet compiles with `tectonic` when available
+
+## Current Skill Ecosystem Notes
+
+Agent skills are now commonly distributed as focused directories with a required `SKILL.md`, optional references, examples, scripts, or templates, and a concise `description` that tells the agent when to load the skill.
+
+Popular current patterns:
+
+- keep the skill narrow instead of creating a broad "learning" or "documents" skill
+- make the directory name and frontmatter `name` identical
+- put long conventions in referenced files so the agent loads them only when needed
+- include examples that show the workflow without turning them into rigid templates
+- document install paths separately for Codex, Claude Code, and Copilot because discovery paths differ
 
 ## Usage
 
@@ -75,11 +130,11 @@ Mention the skill by name when asking an agent to build or extend worksheets.
 
 Example prompts:
 
-- `Use worksheet-studio to create a study pack for a new paper on speculative decoding.`
-- `Use worksheet-studio to read this paper first, then ask me what I already know, then generate worksheets on FlashAttention.`
-- `Use worksheet-studio to turn this topic into 5 progressive LaTeX worksheets.`
-- `Use worksheet-studio to generate both worksheets and matching answer sheets for TDANN.`
-- `Use worksheet-studio to extend worksheet 3 with derivations and numerical exercises.`
+- `Use study-worksheets to create a study pack for a new paper on speculative decoding.`
+- `Use study-worksheets to read this paper first, then ask me what I already know, then generate worksheets on FlashAttention.`
+- `Use study-worksheets to turn this topic into 5 progressive LaTeX worksheets.`
+- `Use study-worksheets to generate both worksheets and matching answer sheets for TDANN.`
+- `Use study-worksheets to extend worksheet 3 with derivations and numerical exercises.`
 
 ## Worked Examples
 
@@ -91,6 +146,8 @@ The repository includes example "Claude Code style" sessions that show the inten
 
 Examples:
 
+- `examples/gumbel-softmax/README.md`
+- `examples/gumbel-softmax/tex/worksheet1_the_problem.tex`
 - `examples/mini-sglang/claude-code-session.md`
 - `examples/mini-sglang/generated-plan.md`
 - `examples/speculative-decoding/claude-code-session.md`

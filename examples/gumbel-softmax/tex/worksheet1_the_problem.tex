@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Gumbel-Softmax Study Guide}
+\rhead{Worksheet 1 of 5}
+\cfoot{\thepage}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+
+\newtcolorbox{keyidea}{colback=blue!5!white, colframe=blue!50!black, title=Key Idea}
+\newtcolorbox{definition}{colback=green!5!white, colframe=green!50!black, title=Definition}
+
+\title{\textbf{Worksheet 1: The Problem} \\ \large Why Can't We Backpropagate Through Discrete Variables?}
+\author{Based on: \textit{Categorical Reparameterization with Gumbel-Softmax} \\ Jang, Gu, and Poole (2017)}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{keyidea}
+Neural networks are trained via gradient descent, which requires operations in the computation graph to be differentiable. Sampling from a categorical distribution is not differentiable, creating a fundamental obstacle for models with discrete latent variables.
+\end{keyidea}
+
+\section*{Learning Objectives}
+
+By the end of this worksheet, you should be able to:
+
+\begin{enumerate}
+    \item Explain why categorical sampling blocks ordinary backpropagation.
+    \item Distinguish the continuous reparameterization trick from the discrete case.
+    \item Compare REINFORCE and straight-through estimators as imperfect workarounds.
+    \item State the problem that Gumbel-Softmax is designed to solve.
+\end{enumerate}
+
+\section{Background: Categorical Distributions}
+
+\begin{definition}
+A categorical distribution over $k$ classes is parameterized by probabilities $\pi_1, \pi_2, \ldots, \pi_k$, where $\pi_i \geq 0$ and $\sum_{i=1}^k \pi_i = 1$. A sample $z$ is often represented as a one-hot vector $\bz \in \{0,1\}^k$ with $\sum_i z_i = 1$.
+\end{definition}
+
+\subsection*{Problem 1.1: Warm-Up}
+
+Suppose we have three classes with probabilities $\pi = (0.5,\; 0.3,\; 0.2)$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Write down all possible one-hot samples $\bz$ and their probabilities.
+    \item What is $\E[\bz]$?
+    \item Is the sample space continuous or discrete? Why does that matter for gradient-based learning?
+\end{enumerate}
+
+\section{The Differentiability Problem}
+
+Consider a neural network with a categorical latent variable:
+
+\[
+\btheta \longrightarrow \pi = \operatorname{softmax}(f_{\btheta}(x)) \longrightarrow \bz \sim \operatorname{Cat}(\pi) \longrightarrow L = h(\bz)
+\]
+
+We want to compute:
+
+\[
+\nabla_{\btheta} \E_{\bz \sim \operatorname{Cat}(\pi)}[L(\bz)]
+\]
+
+\subsection*{Problem 1.2: Where Does the Gradient Break?}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Is $\pi = \operatorname{softmax}(f_{\btheta}(x))$ differentiable with respect to $\btheta$? Explain.
+    \item Is the sampling step $\bz \sim \operatorname{Cat}(\pi)$ differentiable with respect to $\pi$? Explain intuitively.
+    \item Compare $\pi = (0.49,\; 0.51)$ and $\pi = (0.48,\; 0.52)$. How can the sample change? What does this reveal about trying to assign a gradient to sampling?
+\end{enumerate}
+
+\section{The Reparameterization Trick}
+
+\begin{keyidea}
+For continuous distributions, the reparameterization trick moves randomness into a fixed noise variable. For example:
+\[
+\epsilon \sim \mathcal{N}(0,1), \qquad z = \mu + \sigma \epsilon
+\]
+Now $z$ is a deterministic differentiable function of $\mu$ and $\sigma$ once $\epsilon$ is sampled.
+\end{keyidea}
+
+\subsection*{Problem 1.3: Continuous Versus Discrete}
+
+\begin{enumerate}[label=(\alph*)]
+    \item In $z = \mu + \sigma\epsilon$, where does the randomness live? Where do the learnable parameters live?
+    \item Compute $\frac{\partial}{\partial \mu}\E[z^2]$ using $z = \mu + \sigma\epsilon$ and $\epsilon \sim \mathcal{N}(0,1)$.
+    \item Why does this trick not directly solve categorical sampling? What goes wrong if the final operation is $\arg\max$?
+\end{enumerate}
+
+\section{Existing Workarounds}
+
+\subsection*{Problem 1.4: REINFORCE}
+
+The score-function estimator uses:
+
+\[
+\nabla_{\btheta} \E_{\bz}[f(\bz)] = \E_{\bz}\left[f(\bz)\nabla_{\btheta}\log p_{\btheta}(\bz)\right]
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item Why does REINFORCE avoid differentiating through the sample itself?
+    \item Why can this estimator have high variance?
+    \item In what kind of model would high-variance gradient estimates become especially painful?
+\end{enumerate}
+
+\subsection*{Problem 1.5: Straight-Through Estimation}
+
+The straight-through estimator uses a discrete sample in the forward pass, then pretends the operation was differentiable in the backward pass.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Why is this estimator biased?
+    \item Why might it still work in practice?
+    \item What kind of failure mode would you watch for if training depends heavily on this approximation?
+\end{enumerate}
+
+\section{Looking Ahead}
+
+\begin{keyidea}
+The Gumbel-Softmax paper asks whether we can build a continuous relaxation of categorical sampling that is differentiable, approaches one-hot categorical samples as temperature decreases, and gives lower-variance gradients than score-function estimators.
+\end{keyidea}
+
+\subsection*{Problem 1.6: Preview}
+
+Suppose someone suggests replacing $\arg\max$ with a softmax temperature:
+
+\[
+y_i = \frac{\exp(a_i / \tau)}{\sum_j \exp(a_j / \tau)}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item What happens as $\tau \to 0$?
+    \item What happens as $\tau \to \infty$?
+    \item Why is temperature alone not enough? What additional ingredient is needed to turn this into a sampling method?
+\end{enumerate}
+
+\end{document}
+

@@ -1,4 +1,4 @@
 version: 1
-display_name: Worksheet Studio
+display_name: Study Worksheets
 short_description: Read the source, diagnose learner level, then create worksheets, answer sheets, and study materials.
 default_prompt: Create or extend worksheet-based study materials for a technical topic by first understanding the source material, then checking the learner's current level and goals, and finally producing progressive LaTeX worksheets, answer sheets, PDFs, and optional code labs.

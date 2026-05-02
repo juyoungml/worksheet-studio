@@ -1,10 +1,10 @@
 ---
-name: worksheet-studio
+name: study-worksheets
 description: Create or extend worksheet-based study materials for technical topics, especially paper-driven ML/DL topics, by first understanding the source material, then diagnosing the learner's level and goals, and finally producing progressive LaTeX worksheets, answer sheets, compiled PDFs, and optional code labs.
 license: MIT
 ---
 
-# Worksheet Studio
+# Study Worksheets
 
 Use this skill when the user wants to create, extend, or standardize worksheet-based study materials for a technical topic.
 
