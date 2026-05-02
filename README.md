@@ -45,6 +45,12 @@ worksheet-studio/
 
 ## Install
 
+This repository follows the common Agent Skills convention: a skill is a directory with a required `SKILL.md` file plus optional `agents/`, `references/`, `scripts/`, `assets/`, or examples. The install target is the skill directory itself:
+
+```text
+skills/study-worksheets/
+```
+
 ### Codex
 
 Use Codex's built-in `$skill-installer`. Install by GitHub directory URL, then restart Codex so the skill is discovered:
@@ -94,6 +100,17 @@ Result examples:
 ```
 
 Skill directory names should stay lowercase and hyphenated, and the `name` in `SKILL.md` should match the directory name.
+
+## Maintenance Conventions
+
+Keep the public package boring and portable:
+
+- keep `skills/study-worksheets/SKILL.md` concise and put detailed conventions in `references/`
+- keep the directory name, `SKILL.md` frontmatter `name`, and install docs aligned
+- include at least one generated artifact that users can inspect without compiling anything
+- run `./scripts/validate-skill.sh` before pushing changes
+- avoid tool-specific assumptions in the skill body unless they are clearly optional
+- update install instructions when the GitHub repository or skill directory is renamed
 
 ## Validate
 
@@ -148,6 +165,7 @@ Examples:
 
 - `examples/gumbel-softmax/README.md`
 - `examples/gumbel-softmax/tex/worksheet1_the_problem.tex`
+- `examples/gumbel-softmax/pdf/worksheet1_the_problem.pdf`
 - `examples/mini-sglang/claude-code-session.md`
 - `examples/mini-sglang/generated-plan.md`
 - `examples/speculative-decoding/claude-code-session.md`

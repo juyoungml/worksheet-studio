@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILL_DIR="$ROOT/skills/study-worksheets"
 SKILL_MD="$SKILL_DIR/SKILL.md"
 EXAMPLE_TEX="$ROOT/examples/gumbel-softmax/tex/worksheet1_the_problem.tex"
+EXAMPLE_PDF="$ROOT/examples/gumbel-softmax/pdf/worksheet1_the_problem.pdf"
 
 fail() {
   printf 'FAIL: %s\n' "$1" >&2
@@ -39,6 +40,7 @@ cp -R "$SKILL_DIR" "$TMP_DIR/project/.github/skills/"
 pass "skill package installs into Codex, Claude Code, and Copilot-style directories"
 
 [[ -f "$EXAMPLE_TEX" ]] || fail "missing generated gumbel-softmax worksheet example"
+[[ -f "$EXAMPLE_PDF" ]] || fail "missing generated gumbel-softmax worksheet PDF"
 grep -q 'Learning Objectives' "$EXAMPLE_TEX" || fail "generated worksheet example lacks learning objectives"
 grep -q 'Problem 1.1' "$EXAMPLE_TEX" || fail "generated worksheet example lacks numbered problems"
 
@@ -53,4 +55,3 @@ else
 fi
 
 pass "study-worksheets validation complete"
-

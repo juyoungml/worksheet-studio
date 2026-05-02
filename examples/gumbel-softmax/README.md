@@ -11,6 +11,7 @@ The full source study set includes five conceptual worksheets and one PyTorch co
 ## Files
 
 - `tex/worksheet1_the_problem.tex`: generated active-recall worksheet
+- `pdf/worksheet1_the_problem.pdf`: compiled worksheet for easy viewing
 
 ## What To Check
 
@@ -21,4 +22,3 @@ This example should show the core `study-worksheets` pattern:
 - derivation and self-explanation prompts
 - misconception checks around differentiability and sampling
 - LaTeX that can compile into a printable PDF
-
