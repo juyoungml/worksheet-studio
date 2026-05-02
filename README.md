@@ -6,22 +6,37 @@ The skill helps an agent read the source material first, calibrate the learner's
 
 ## Install
 
-Install or copy the skill directory:
+### For Humans
+
+Paste this into your coding agent:
 
 ```text
-skills/study-worksheets/
+Install the study-worksheets skill for my current agent by following:
+https://github.com/juyoungml/study-worksheets
+
+Use the install location for the agent I am running. After installing, verify that this file exists:
+<skills-root>/study-worksheets/SKILL.md
 ```
 
-Codex:
+For Codex, you can also ask:
 
 ```text
 $skill-installer install https://github.com/juyoungml/study-worksheets/tree/main/skills/study-worksheets
 ```
 
-Other agents:
+### For Agents
+
+Install the skill directory:
+
+```text
+skills/study-worksheets/
+```
+
+Use the current runtime's skill root:
 
 | Agent | Install location |
 |---|---|
+| Codex | `$CODEX_HOME/skills/` or `~/.codex/skills/` |
 | Claude Code | `.claude/skills/` or `~/.claude/skills/` |
 | GitHub Copilot Agents | `.github/skills/`, `.claude/skills/`, `.agents/skills/`, `~/.copilot/skills/`, or `~/.agents/skills/` |
 | OpenCode | `.opencode/skills/`, `~/.config/opencode/skills/`, `.claude/skills/`, or `.agents/skills/` |
@@ -32,6 +47,8 @@ The installed file should land at:
 ```text
 <skills-root>/study-worksheets/SKILL.md
 ```
+
+If you need to fetch only this skill from GitHub, use sparse checkout or an equivalent directory download, then copy `skills/study-worksheets/` into the detected skill root.
 
 ## Examples
 
@@ -66,4 +83,3 @@ skills/study-worksheets/
 ├── agents/openai.yaml
 └── references/study-worksheet-conventions.md
 ```
-
