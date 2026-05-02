@@ -62,9 +62,23 @@ Source files and session traces are in [`examples/`](examples/).
 
 Example prompts:
 
-- `Use study-worksheets to create a study pack for a paper on speculative decoding.`
-- `Use study-worksheets to turn this topic into 5 progressive LaTeX worksheets.`
-- `Use study-worksheets to generate worksheets and matching answer sheets for TDANN.`
+```text
+In this new repo, use study-worksheets to create a worksheet pack for this paper:
+https://arxiv.org/abs/1611.01144
+
+Read the paper first, ask me only the calibration questions you need, then create progressive LaTeX worksheets, compiled PDFs, and a concise README.
+```
+
+```text
+Use study-worksheets to build a study folder for speculative decoding from:
+https://arxiv.org/abs/2211.17192
+
+Optimize for intuition first, proof second, implementation third. Include answer sheets only after the worksheets are drafted.
+```
+
+```text
+Inside this repo, use study-worksheets to extend the existing topic folder with one more worksheet and matching answer sheet. Keep the current LaTeX style and compile the PDF.
+```
 
 ## Validate
 
